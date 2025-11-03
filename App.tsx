@@ -4,6 +4,7 @@ import Header from './components/Header';
 import ModeSelector from './components/ModeSelector';
 import ImageStudio from './components/ImageStudio';
 import Footer from './components/Footer';
+import AdBanner from './components/AdBanner';
 
 const App: React.FC = () => {
   const [mode, setMode] = useState<Mode>(Mode.Colorize);
@@ -20,12 +21,20 @@ const App: React.FC = () => {
         </p>
 
         <ModeSelector currentMode={mode} onModeChange={setMode} />
-        <div className="w-full max-w-4xl mt-8">
+        
+        <section className="w-full max-w-4xl mt-8" aria-labelledby="tool-heading">
+          <h2 id="tool-heading" className="sr-only">{mode === Mode.Colorize ? 'Photo Colorization Tool' : 'Background Removal Tool'}</h2>
+          
+          {/* AdSense Ad Unit */}
+          <div className="my-6">
+            <AdBanner />
+          </div>
+
           <ImageStudio 
             key={mode} 
             mode={mode}
           />
-        </div>
+        </section>
       </main>
       <Footer />
     </div>

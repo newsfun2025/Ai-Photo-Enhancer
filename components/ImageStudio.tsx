@@ -18,7 +18,23 @@ const ImageStudio: React.FC<ImageStudioProps> = ({ mode }) => {
   const [error, setError] = useState<string | null>(null);
 
   const prompts = {
-    [Mode.Colorize]: 'Colorize this black and white photograph. Enhance the colors to be realistic and natural, preserving the original details.',
+    [Mode.Colorize]: `You are a world-leading digital photo archivist and restoration master. You have been tasked with restoring a precious, severely aged photograph. Your goal is not just to colorize it, but to bring it back to life with the utmost care, precision, and historical accuracy, as if it were a museum piece.
+
+Your process must be meticulous. Execute the following steps in order:
+
+1.  **Comprehensive Damage Assessment & Repair:**
+    *   **Initial Analysis:** First, perform a deep analysis of the entire image to identify all forms of degradation. This includes, but is not limited to: major scratches, tears, creases, folds, severe fading, water damage, chemical stains, silvering-out in dark areas, dust, and mold spots.
+    *   **Structural Reconstruction:** For areas with significant damage or missing information, intelligently reconstruct the details based on the surrounding context. For example, if a part of a face is obscured, rebuild it seamlessly using the visible features as a guide.
+    *   **Texture and Tone Restoration:** Correct the tonal range. Balance the contrast and exposure to recover lost details in both the deep shadows and the bright highlights before proceeding. The goal is a full, rich tonal foundation.
+
+2.  **Masterful & Historically-Accurate Colorization:**
+    *   **Research & Palette:** Apply colors that are not only realistic but also historically and contextually accurate for the era the photo was taken.
+    *   **Subtle Tonality:** Pay extreme attention to the subtleties of color. Skin tones should have multiple hues and gradations, reflecting blood flow and light. Avoid flat, artificial-looking skin. Clothing should show texture and fabric type through color variations.
+    *   **Atmospheric Realism:** The colors should reflect the lighting conditions of the original scene (e.g., warm sunlight, cool indoor light). Create a sense of depth and atmosphere.
+
+3.  **Final Enhancement to Archival Quality:**
+    *   **Intelligent Sharpening & Noise Reduction:** Enhance the image to a crisp, high-definition state. Apply intelligent, content-aware sharpening that clarifies details without creating artificial halos or exaggerating grain. If noise is present, reduce it carefully, preserving essential texture.
+    *   **Final Polish:** Perform a final check to ensure all elements are harmonious. The final result should be a pristine, high-resolution digital photograph that looks completely natural and honors the original subject. It should not look overly processed or 'AI-generated'.`,
     [Mode.RemoveBackground]: 'Remove the background from this image. The subject should be perfectly isolated. Make the new background transparent.',
   };
 
@@ -91,13 +107,20 @@ const ImageStudio: React.FC<ImageStudioProps> = ({ mode }) => {
       )}
 
       {!isLoading && processedImage && uploadedImage && (
-        <ImageComparisonSlider beforeImage={uploadedImage} afterImage={processedImage} />
+        <ImageComparisonSlider 
+          beforeImage={uploadedImage} 
+          afterImage={processedImage} 
+        />
       )}
       
       {!isLoading && !processedImage && uploadedImage && (
         <div className="w-full flex justify-center mb-6">
             <div className="relative inline-block">
-              <img src={uploadedImage} alt="Ready to process" className="max-w-full max-h-[60vh] rounded-lg shadow-md" />
+              <img 
+                src={uploadedImage} 
+                alt={mode === Mode.Colorize ? 'Original black and white photo ready for colorization' : 'Original image ready for background removal'} 
+                className="max-w-full max-h-[60vh] rounded-lg shadow-md" 
+              />
             </div>
         </div>
       )}
