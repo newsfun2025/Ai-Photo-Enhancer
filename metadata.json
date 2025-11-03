@@ -1,0 +1,5 @@
+{
+  "name": "Zee AI Photo Enhancer",
+  "description": "An AI-powered tool to colorize black and white photos and remove backgrounds from any image, built with the Gemini API.",
+  "requestFramePermissions": []
+}
