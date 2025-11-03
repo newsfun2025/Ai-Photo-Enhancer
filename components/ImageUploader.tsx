@@ -51,6 +51,10 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload, mode }) =>
         title: "Upload an Image",
         description: "Drag and drop or click to remove its background"
     },
+    [Mode.RemoveWatermark]: {
+        title: "Upload an Image with a Watermark",
+        description: "Drag and drop or click to select a file to remove the watermark"
+    },
     [Mode.Compress]: {
         title: "Upload an Image to Compress",
         description: "Reduce file size while preserving quality"

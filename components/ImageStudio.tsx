@@ -55,6 +55,11 @@ Your process must be meticulous. Execute the following steps in order:
     *   **Intelligent Sharpening & Noise Reduction:** Enhance the image to a crisp, high-definition state. Apply intelligent, content-aware sharpening that clarifies details without creating artificial halos or exaggerating grain. If noise is present, reduce it carefully, preserving essential texture.
     *   **Final Polish:** Perform a final check to ensure all elements are harmonious. The final result should be a pristine, high-resolution digital photograph that looks completely natural and honors the original subject. It should not look overly processed or 'AI-generated'.`,
     [Mode.RemoveBackground]: 'Remove the background from this image. The subject should be perfectly isolated. Make the new background transparent.',
+    [Mode.RemoveWatermark]: `You are an expert digital image restoration specialist with a focus on inpainting and object removal. Your task is to completely remove any and all watermarks from this image.
+
+1.  **Identify the Watermark(s):** Carefully scan the image to locate all watermarks. They could be text, logos, or patterns, and might be transparent, opaque, or tiled across the image.
+2.  **Analyze the Surrounding Area:** For each part of the watermark, analyze the pixels immediately surrounding it. Understand the textures, colors, gradients, and patterns of the background that the watermark is covering.
+3.  **Seamless Inpainting:** Intelligently fill in the area where the watermark was. Reconstruct the background perfectly, making it look as if the watermark was never there. The final image should have no artifacts, blurs, or discolored patches where the watermark used to be. The result must be seamless and completely natural.`,
   };
 
   const getFileInfo = (dataUrl: string): ImageInfo => {
@@ -108,7 +113,7 @@ Your process must be meticulous. Execute the following steps in order:
       else {
         const base64 = dataUrlToBase64(uploadedImage);
         const mimeType = getMimeTypeFromDataUrl(uploadedImage);
-        const prompt = prompts[mode as Mode.Colorize | Mode.RemoveBackground];
+        const prompt = prompts[mode as Mode.Colorize | Mode.RemoveBackground | Mode.RemoveWatermark];
         
         const resultBase64 = await processImage(base64, mimeType, prompt);
         
@@ -184,6 +189,7 @@ Your process must be meticulous. Execute the following steps in order:
     switch(mode) {
         case Mode.Colorize: return 'Start Colorizing';
         case Mode.RemoveBackground: return 'Remove Background';
+        case Mode.RemoveWatermark: return 'Remove Watermark';
         case Mode.Compress: return 'Compress Image';
         case Mode.Convert: return `Convert to ${targetFormat.toUpperCase()}`;
     }
@@ -200,7 +206,7 @@ Your process must be meticulous. Execute the following steps in order:
         </div>
       )}
 
-      {(mode === Mode.Colorize || mode === Mode.RemoveBackground) && !isLoading && processedImage && uploadedImage && (
+      {(mode === Mode.Colorize || mode === Mode.RemoveBackground || mode === Mode.RemoveWatermark) && !isLoading && processedImage && uploadedImage && (
         <ImageComparisonSlider 
           beforeImage={uploadedImage} 
           afterImage={processedImage} 

@@ -19,6 +19,12 @@ const Spinner: React.FC<SpinnerProps> = ({ mode }) => {
             "Isolating pixels...",
             "Finalizing transparent background...",
         ],
+        [Mode.RemoveWatermark]: [
+            "Analyzing image for watermarks...",
+            "Reconstructing background details...",
+            "Seamlessly inpainting...",
+            "Erasing the final traces...",
+        ],
         [Mode.Compress]: [
             "Optimizing image data...",
             "Finding the perfect balance...",

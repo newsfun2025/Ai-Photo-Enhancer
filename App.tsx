@@ -17,7 +17,7 @@ const App: React.FC = () => {
           AI Photo Enhancer
         </h1>
         <p className="text-lg text-slate-400 text-center mb-8 max-w-2xl">
-          Breathe new life into your photos. Colorize, remove backgrounds, compress, or convert images with the power of Gemini.
+          Breathe new life into your photos. Colorize, remove backgrounds, remove watermarks, compress, or convert images with the power of Gemini.
         </p>
 
         <ModeSelector currentMode={mode} onModeChange={setMode} />
@@ -26,6 +26,7 @@ const App: React.FC = () => {
           <h2 id="tool-heading" className="sr-only">{
             mode === Mode.Colorize ? 'Photo Colorization Tool' : 
             mode === Mode.RemoveBackground ? 'Background Removal Tool' : 
+            mode === Mode.RemoveWatermark ? 'Watermark Removal Tool' :
             mode === Mode.Compress ? 'Image Compression Tool' :
             'Image Conversion Tool'
           }</h2>

@@ -10,6 +10,7 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({ currentMode, onModeChange }
   const modes = [
     { id: Mode.Colorize, label: 'Colorize Photo' },
     { id: Mode.RemoveBackground, label: 'Remove Background' },
+    { id: Mode.RemoveWatermark, label: 'Remove Watermark' },
     { id: Mode.Compress, label: 'Compress Image' },
     { id: Mode.Convert, label: 'Convert Image' },
   ];
