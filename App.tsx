@@ -7,7 +7,7 @@ import Footer from './components/Footer';
 import AdBanner from './components/AdBanner';
 
 const App: React.FC = () => {
-  const [mode, setMode] = useState<Mode>(Mode.Colorize);
+  const [mode, setMode] = useState<Mode>(Mode.RemoveBackground);
 
   return (
     <div className="min-h-screen flex flex-col font-sans">
