@@ -30,13 +30,18 @@ const App: React.FC = () => {
             'Image Conversion Tool'
           }</h2>
           
+          {/* AdSense Ad Unit (Top) */}
+          <div className="mb-8">
+            <AdBanner />
+          </div>
+
           <ImageStudio 
             key={mode} 
             mode={mode}
           />
 
-          {/* AdSense Ad Unit */}
-          <div className="my-6">
+          {/* AdSense Ad Unit (Bottom) */}
+          <div className="mt-8">
             <AdBanner />
           </div>
         </section>
