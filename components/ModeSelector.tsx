@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Mode } from '../types';
 
@@ -11,10 +10,12 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({ currentMode, onModeChange }
   const modes = [
     { id: Mode.Colorize, label: 'Colorize Photo' },
     { id: Mode.RemoveBackground, label: 'Remove Background' },
+    { id: Mode.Compress, label: 'Compress Image' },
+    { id: Mode.Convert, label: 'Convert Image' },
   ];
 
   return (
-    <div className="flex bg-slate-800 rounded-full p-1 shadow-inner">
+    <div className="flex bg-slate-800 rounded-full p-1 shadow-inner flex-wrap justify-center">
       {modes.map((mode) => (
         <button
           key={mode.id}

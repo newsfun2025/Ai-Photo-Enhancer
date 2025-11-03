@@ -17,23 +17,28 @@ const App: React.FC = () => {
           AI Photo Enhancer
         </h1>
         <p className="text-lg text-slate-400 text-center mb-8 max-w-2xl">
-          Breathe new life into your photos. Colorize black and white images or remove backgrounds with the power of Gemini.
+          Breathe new life into your photos. Colorize, remove backgrounds, compress, or convert images with the power of Gemini.
         </p>
 
         <ModeSelector currentMode={mode} onModeChange={setMode} />
         
         <section className="w-full max-w-4xl mt-8" aria-labelledby="tool-heading">
-          <h2 id="tool-heading" className="sr-only">{mode === Mode.Colorize ? 'Photo Colorization Tool' : 'Background Removal Tool'}</h2>
+          <h2 id="tool-heading" className="sr-only">{
+            mode === Mode.Colorize ? 'Photo Colorization Tool' : 
+            mode === Mode.RemoveBackground ? 'Background Removal Tool' : 
+            mode === Mode.Compress ? 'Image Compression Tool' :
+            'Image Conversion Tool'
+          }</h2>
           
-          {/* AdSense Ad Unit */}
-          <div className="my-6">
-            <AdBanner />
-          </div>
-
           <ImageStudio 
             key={mode} 
             mode={mode}
           />
+
+          {/* AdSense Ad Unit */}
+          <div className="my-6">
+            <AdBanner />
+          </div>
         </section>
       </main>
       <Footer />

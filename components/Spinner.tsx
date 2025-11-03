@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Mode } from '../types';
 
@@ -19,6 +18,18 @@ const Spinner: React.FC<SpinnerProps> = ({ mode }) => {
             "Creating a precision mask...",
             "Isolating pixels...",
             "Finalizing transparent background...",
+        ],
+        [Mode.Compress]: [
+            "Optimizing image data...",
+            "Finding the perfect balance...",
+            "Shrinking pixels...",
+            "Applying compression algorithm...",
+        ],
+        [Mode.Convert]: [
+            "Reading image data...",
+            "Re-encoding pixels...",
+            "Changing file format...",
+            "Finalizing conversion...",
         ]
     }
     const [message, setMessage] = React.useState(messages[mode][0]);
@@ -26,9 +37,11 @@ const Spinner: React.FC<SpinnerProps> = ({ mode }) => {
     React.useEffect(() => {
         const interval = setInterval(() => {
             setMessage(prev => {
-                const currentIndex = messages[mode].indexOf(prev);
-                const nextIndex = (currentIndex + 1) % messages[mode].length;
-                return messages[mode][nextIndex];
+                const currentMessages = messages[mode] || [];
+                if (currentMessages.length === 0) return '';
+                const currentIndex = currentMessages.indexOf(prev);
+                const nextIndex = (currentIndex + 1) % currentMessages.length;
+                return currentMessages[nextIndex];
             });
         }, 2500);
         return () => clearInterval(interval);

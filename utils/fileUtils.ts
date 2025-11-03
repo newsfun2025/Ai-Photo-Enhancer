@@ -50,3 +50,72 @@ export const getCroppedImg = (
     resolve(canvas.toDataURL());
   });
 };
+
+interface CompressOptions {
+  quality: number; // 0-100
+  width?: number;
+  height?: number;
+}
+
+export const compressImage = (
+  dataUrl: string,
+  options: CompressOptions
+): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => {
+      const canvas = document.createElement('canvas');
+      
+      const targetWidth = options.width || image.naturalWidth;
+      const targetHeight = options.height || image.naturalHeight;
+      
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
+      
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        return reject(new Error('Could not get canvas context.'));
+      }
+
+      ctx.drawImage(image, 0, 0, targetWidth, targetHeight);
+
+      // Using image/jpeg for effective, quality-based compression.
+      const compressedDataUrl = canvas.toDataURL('image/jpeg', options.quality / 100);
+      resolve(compressedDataUrl);
+    };
+    image.onerror = (error) => {
+      reject(new Error('Failed to load image for compression.'));
+    };
+    image.src = dataUrl;
+  });
+};
+
+export type ImageFormat = 'png' | 'jpeg' | 'webp';
+
+export const convertImage = (
+  dataUrl: string,
+  format: ImageFormat,
+  quality: number = 92 // default quality for jpeg/webp
+): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = image.naturalWidth;
+      canvas.height = image.naturalHeight;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        return reject(new Error('Could not get canvas context.'));
+      }
+      ctx.drawImage(image, 0, 0);
+      const mimeType = `image/${format}`;
+      // Note: toDataURL for 'image/png' ignores the quality parameter.
+      const convertedDataUrl = canvas.toDataURL(mimeType, quality / 100);
+      resolve(convertedDataUrl);
+    };
+    image.onerror = (error) => {
+      reject(new Error('Failed to load image for conversion.'));
+    };
+    image.src = dataUrl;
+  });
+};

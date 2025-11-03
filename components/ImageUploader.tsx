@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { Mode } from '../types';
 import PhotoIcon from './icons/PhotoIcon';
@@ -51,6 +50,14 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload, mode }) =>
     [Mode.RemoveBackground]: {
         title: "Upload an Image",
         description: "Drag and drop or click to remove its background"
+    },
+    [Mode.Compress]: {
+        title: "Upload an Image to Compress",
+        description: "Reduce file size while preserving quality"
+    },
+    [Mode.Convert]: {
+        title: "Upload an Image to Convert",
+        description: "Change image format to PNG, JPEG, or WEBP"
     }
   }
 
